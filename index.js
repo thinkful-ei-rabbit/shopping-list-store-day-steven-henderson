@@ -1,3 +1,5 @@
+'use strict';
+
 const store = {
   items: [
     { id: cuid(), name: 'apples', checked: false },
@@ -73,6 +75,7 @@ const handleNewItemSubmit = function () {
     $('.js-shopping-list-entry').val('');
     addItemToShoppingList(newItemName);
     render();
+    handleItemNameEditor();
   });
 };
 
@@ -86,6 +89,7 @@ const handleItemCheckClicked = function () {
     const id = getItemIdFromElement(event.currentTarget);
     toggleCheckedForListItem(id);
     render();
+    handleItemNameEditor();
   });
 };
 
@@ -124,6 +128,7 @@ const handleDeleteItemClicked = function () {
     deleteListItem(id);
     // Render the updated shopping list.
     render();
+    handleItemNameEditor();
   });
 };
 
@@ -142,6 +147,19 @@ const handleToggleFilterClick = function () {
   $('.js-filter-checked').click(() => {
     toggleCheckedItemsFilter();
     render();
+    handleItemNameEditor();
+  });
+};
+
+/**
+ * Listens for clicks on item to be edited
+ * Also allows for item to be edited
+ */
+//so far so good so what!
+const handleItemNameEditor = function () {
+  $('.shopping-item').on('click', function (event) {
+    console.log('oink');
+    this.contentEditable = true;
   });
 };
 
@@ -160,6 +178,7 @@ const handleShoppingList = function () {
   handleItemCheckClicked();
   handleDeleteItemClicked();
   handleToggleFilterClick();
+  handleItemNameEditor();
 };
 
 // when the page loads, call `handleShoppingList`
